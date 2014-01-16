@@ -77,10 +77,10 @@ class Ema
 	def output
 		puts "\n---------------------------------------"
 		puts @item
-		puts "Buy Price:     #{@buy_price}"
 		puts "Sell Price:    #{@sell_price}"
-		puts "Adjusted Buy:  #{adjusted_buy}"
+		puts "Buy Price:     #{@buy_price}"
 		puts "Adjusted Sell: #{adjusted_sell}"
+		puts "Adjusted Buy:  #{adjusted_buy}"
 		puts "Profit:        #{profit}"
 		puts "Margin:        #{margin}%"
 		puts "Copied #{@buy ? 'buy' : 'sell'} price to clipboard!"
