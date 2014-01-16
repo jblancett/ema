@@ -20,16 +20,12 @@ class Ema
 		data = read_file
 		@keys = data.shift.map{ |k| k.to_sym }
 		@logs = data
-		binding.pry
 		analyze
-		binding.pry
 		self
 	end
 
 	def read_file
-		binding.pry
 		data = File.readlines(File.join(LOG_PATH,file)).map{ |line| line.split(',').reject{ |v| v[/\r\n/] } }
-		binding.pry
 		data
 	end
 
@@ -99,13 +95,11 @@ class Ema
 			count = Dir.entries(LOG_PATH).count
 			if count > n
 				n = count
-				sleep(0.5)
-				binding.pry
+				sleep(0.2) # this delay must be here before loading the file or it doesn't read the whole file
 				ema.load(self::last_log).output
-				binding.pry
 			end
 		end
-		sleep(1)
+		sleep(0.5)
 	end
 
 	def self.last_log
