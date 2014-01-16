@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'clipboard'
+require 'pry'
 
 class Ema
 
@@ -30,8 +31,9 @@ class Ema
 	end
 
 	def analyze
-		@buy_price = (buy_orders.first[key(:price)].to_f + INCREMENT).round(2)
-		@sell_price = (sell_orders.first[key(:price)].to_f - INCREMENT).round(2)
+		# each of these values will default to 0 if no orders are found
+		@buy_price = (buy_orders.first[key(:price)].to_f + INCREMENT).round(2) rescue 0
+		@sell_price = (sell_orders.first[key(:price)].to_f - INCREMENT).round(2) rescue 0
 	end
 
 	def buy_orders
