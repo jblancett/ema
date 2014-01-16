@@ -20,12 +20,17 @@ class Ema
 		data = read_file
 		@keys = data.shift.map{ |k| k.to_sym }
 		@logs = data
+		binding.pry
 		analyze
+		binding.pry
 		self
 	end
 
 	def read_file
-		File.readlines(File.join(LOG_PATH,file)).map{ |line| line.split(',').reject{ |v| v[/\r\n/] } }
+		binding.pry
+		data = File.readlines(File.join(LOG_PATH,file)).map{ |line| line.split(',').reject{ |v| v[/\r\n/] } }
+		binding.pry
+		data
 	end
 
 	def analyze
@@ -58,7 +63,7 @@ class Ema
 	end
 
 	def profit
-		adjusted_sell - adjusted_buy
+		(adjusted_sell - adjusted_buy).round(2)
 	end
 
 	def key(k)
@@ -94,10 +99,13 @@ class Ema
 			count = Dir.entries(LOG_PATH).count
 			if count > n
 				n = count
+				sleep(0.5)
+				binding.pry
 				ema.load(self::last_log).output
+				binding.pry
 			end
 		end
-		sleep(0.1)
+		sleep(1)
 	end
 
 	def self.last_log
@@ -105,11 +113,5 @@ class Ema
 	end
 
 end
-
-# ema = Ema.new
-# ema.load(Ema::last_log)
-# ema.output
-# ema.load("Metropolis-Modal Neutron Particle Accelerator I-2014.01.14 205819.txt")
-# ema.output
 
 Ema::watch
