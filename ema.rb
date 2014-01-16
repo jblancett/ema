@@ -108,4 +108,5 @@ class Ema
 
 end
 
-Ema::watch
+
+Ema::watch(ARGV[0] != '-s')
