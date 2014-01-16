@@ -9,7 +9,7 @@ Usage:
 
 bundle install
 
-./ema
+./ema.rb
 
 
 While running this will determine the optimal buy and sell price, among other things, when you Export to File in the market window of the Eve client.
