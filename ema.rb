@@ -97,7 +97,7 @@ class Ema
 			count = Dir.entries(LOG_PATH).count
 			if count > n
 				n = count
-				sleep(0.2) # this delay must be here before loading the file or it doesn't read the whole file
+				sleep(0.3) # this delay must be here before loading the file or it doesn't read the whole file
 				ema.load(self::last_log).output
 			end
 		end
