@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'clipboard'
+require 'rainbow/ext/string'
 
 class Ema
 
@@ -9,7 +10,7 @@ class Ema
 	LOG_PATH = File.expand_path("~" + (RUBY_PLATFORM.include?('darwin') ? '/Library/Application Support/EVE Online/p_drive/User/My Documents' : '/Documents') + '/EVE/logs/Marketlogs')
 
 	attr_accessor :file, :item, :logs, :keys, :buy, :buy_price, :sell_price
-
+	
 	def initialize(buy=true)
 		@buy = buy
 	end
@@ -63,6 +64,14 @@ class Ema
 		(adjusted_sell - adjusted_buy).round(2)
 	end
 
+	def bg_color
+		case margin.to_i
+			when -100..7 then :red
+			when 8..12 then :yellow
+			when 13..100 then :green
+		end
+	end
+	
 	def key(k)
 		@keys.index(k)
 	end
@@ -76,16 +85,19 @@ class Ema
 	end
 
 	def output
-		puts "\n---------------------------------------"
-		puts @item
-		puts "Sell Price:    #{@sell_price}"
-		puts "Buy Price:     #{@buy_price}"
-		puts "Adjusted Sell: #{adjusted_sell}"
-		puts "Adjusted Buy:  #{adjusted_buy}"
-		puts "Profit:        #{profit}"
-		puts "Margin:        #{margin}%"
-		puts "Copied #{@buy ? 'buy' : 'sell'} price to clipboard!"
-		puts "---------------------------------------"
+		puts
+		[
+			"---------------------------------------",
+			@item,
+			"Sell Price:    #{@sell_price}",
+			"Buy Price:     #{@buy_price}",
+			"Adjusted Sell: #{adjusted_sell}",
+			"Adjusted Buy:  #{adjusted_buy}",
+			"Profit:        #{profit}",
+			"Margin:        #{margin}%",
+			"Copied #{@buy ? 'buy' : 'sell'} price to clipboard!",
+			"---------------------------------------",
+		].each{ |line| puts line.background(bg_color).color(:black) }
 		Clipboard.copy((@buy ? @buy_price : @sell_price).to_s)
 	end
 
