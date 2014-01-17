@@ -92,8 +92,8 @@ class Ema
       "Adjusted Sell: #{adjusted_sell}\n" +
       "Adjusted Buy:  #{adjusted_buy}\n" +
       "Profit:        #{profit}\n" +
-     	"Margin:        #{margin}%\n" +
-     	"Copied #{@buy ? 'buy' : 'sell'} price to clipboard!\n" +
+      "Margin:        #{margin}%\n" +
+ 			"Copied #{@buy ? 'buy' : 'sell'} price to clipboard!\n" +
       "---------------------------------------").background(bg_color).color(:black)
 		Clipboard.copy((@buy ? @buy_price : @sell_price).to_s)
 	end
