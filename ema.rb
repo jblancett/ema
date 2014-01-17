@@ -85,19 +85,16 @@ class Ema
 	end
 
 	def output
-		puts
-		[
-			"---------------------------------------",
-			@item,
-			"Sell Price:    #{@sell_price}",
-			"Buy Price:     #{@buy_price}",
-			"Adjusted Sell: #{adjusted_sell}",
-			"Adjusted Buy:  #{adjusted_buy}",
-			"Profit:        #{profit}",
-			"Margin:        #{margin}%",
-			"Copied #{@buy ? 'buy' : 'sell'} price to clipboard!",
-			"---------------------------------------",
-		].each{ |line| puts line.background(bg_color).color(:black) }
+		puts ("\n---------------------------------------\n" +
+			@item + "\n" +
+      "Sell Price:    #{@sell_price}\n" +
+      "Buy Price:     #{@buy_price}\n" +
+      "Adjusted Sell: #{adjusted_sell}\n" +
+      "Adjusted Buy:  #{adjusted_buy}\n" +
+      "Profit:        #{profit}\n" +
+      "Margin:        #{margin}%\n" +
+ 			"Copied #{@buy ? 'buy' : 'sell'} price to clipboard!\n" +
+      "---------------------------------------").background(bg_color).color(:black)
 		Clipboard.copy((@buy ? @buy_price : @sell_price).to_s)
 	end
 
