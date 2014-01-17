@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'clipboard'
+require 'rainbow/ext/string'
 
 class Ema
 
@@ -9,7 +10,7 @@ class Ema
 	LOG_PATH = File.expand_path("~" + (RUBY_PLATFORM.include?('darwin') ? '/Library/Application Support/EVE Online/p_drive/User/My Documents' : '/Documents') + '/EVE/logs/Marketlogs')
 
 	attr_accessor :file, :item, :logs, :keys, :buy, :buy_price, :sell_price
-
+	
 	def initialize(buy=true)
 		@buy = buy
 	end
@@ -63,6 +64,15 @@ class Ema
 		(adjusted_sell - adjusted_buy).round(2)
 	end
 
+	def bg_color
+		color = case @margin
+			when 0..7.9999 then :red
+			when 8..12.9999 then :yellow
+			when 13..100 then :green
+		end
+		color
+	end
+	
 	def key(k)
 		@keys.index(k)
 	end
@@ -85,7 +95,7 @@ class Ema
 		puts "Profit:        #{profit}"
 		puts "Margin:        #{margin}%"
 		puts "Copied #{@buy ? 'buy' : 'sell'} price to clipboard!"
-		puts "---------------------------------------"
+		puts "---------------------------------------".background(bg_color)
 		Clipboard.copy((@buy ? @buy_price : @sell_price).to_s)
 	end
 
