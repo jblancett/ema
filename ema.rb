@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'clipboard'
-require 'pry'
 
 class Ema
 
