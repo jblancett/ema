@@ -85,8 +85,9 @@ class Ema
 	end
 
 	def output
+		puts
 		[
-			"\n---------------------------------------",
+			"---------------------------------------",
 			@item,
 			"Sell Price:    #{@sell_price}",
 			"Buy Price:     #{@buy_price}",
