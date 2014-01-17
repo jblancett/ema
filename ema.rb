@@ -65,12 +65,11 @@ class Ema
 	end
 
 	def bg_color
-		color = case @margin
-			when 0..7.9999 then :red
-			when 8..12.9999 then :yellow
+		case margin.to_i
+			when -100..7 then :red
+			when 8..12 then :yellow
 			when 13..100 then :green
 		end
-		color
 	end
 	
 	def key(k)
@@ -86,16 +85,18 @@ class Ema
 	end
 
 	def output
-		puts "\n---------------------------------------"
-		puts @item
-		puts "Sell Price:    #{@sell_price}"
-		puts "Buy Price:     #{@buy_price}"
-		puts "Adjusted Sell: #{adjusted_sell}"
-		puts "Adjusted Buy:  #{adjusted_buy}"
-		puts "Profit:        #{profit}"
-		puts "Margin:        #{margin}%"
-		puts "Copied #{@buy ? 'buy' : 'sell'} price to clipboard!"
-		puts "---------------------------------------".background(bg_color)
+		[
+			"\n---------------------------------------",
+			@item,
+			"Sell Price:    #{@sell_price}",
+			"Buy Price:     #{@buy_price}",
+			"Adjusted Sell: #{adjusted_sell}",
+			"Adjusted Buy:  #{adjusted_buy}",
+			"Profit:        #{profit}",
+			"Margin:        #{margin}%",
+			"Copied #{@buy ? 'buy' : 'sell'} price to clipboard!",
+			"---------------------------------------",
+		].each{ |line| puts line.background(bg_color).color(:black) }
 		Clipboard.copy((@buy ? @buy_price : @sell_price).to_s)
 	end
 
