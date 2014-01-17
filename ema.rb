@@ -87,7 +87,7 @@ class Ema
 		puts "Margin:        #{margin}%"
 		puts "Copied #{@buy ? 'buy' : 'sell'} price to clipboard!"
 		puts "---------------------------------------"
-		Clipboard.copy(@buy ? @buy_price : @sell_price)
+		Clipboard.copy((@buy ? @buy_price : @sell_price).to_s)
 	end
 
 	def self.watch(buy=true)
