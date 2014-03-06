@@ -84,17 +84,21 @@ class Ema
 		@buy = false
 	end
 
+	def format_number(number, delimiter = ',')
+		number.to_s.reverse.gsub(%r{([0-9]{3}(?=([0-9])))}, "\\1#{delimiter}").reverse
+	end
+
 	def output
 		puts ("\n---------------------------------------\n" +
-			@item + "\n" +
-      "Sell Price:    #{@sell_price}\n" +
-      "Buy Price:     #{@buy_price}\n" +
-      "Adjusted Sell: #{adjusted_sell}\n" +
-      "Adjusted Buy:  #{adjusted_buy}\n" +
-      "Profit:        #{profit}\n" +
-      "Margin:        #{margin}%\n" +
- 			"Copied #{@buy ? 'buy' : 'sell'} price to clipboard!\n" +
-      "---------------------------------------").background(bg_color).color(:black)
+			@item +
+      "\nSell Price:    " + format_number(@sell_price) +
+      "\nBuy Price:     " + format_number(@buy_price) +
+      "\nAdjusted Sell: " + format_number(adjusted_sell) +
+      "\nAdjusted Buy:  " + format_number(adjusted_buy) +
+      "\nProfit:        " + format_number(profit) +
+      "\nMargin:        #{margin}%" +
+ 			"\nCopied #{@buy ? 'buy' : 'sell'} price to clipboard!" +
+      "\n---------------------------------------").background(bg_color).color(:black)
 		Clipboard.copy((@buy ? @buy_price : @sell_price).to_s)
 	end
 
