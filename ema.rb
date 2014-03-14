@@ -69,7 +69,7 @@ class Ema
 			when -100..7 then :red
 			when 8..12 then :yellow
 			when 13..100 then :green
-		end
+		end rescue :blue
 	end
 	
 	def key(k)
